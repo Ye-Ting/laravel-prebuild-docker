@@ -8,6 +8,8 @@ RUN apt-get update && apt-get install -y libmcrypt-dev libz-dev git \
 
 RUN composer global require "laravel/installer=~1.1"  "phpunit/phpunit=~4.0" "phpspec/phpspec=~2.1" 
 
+ENV PATH $PATH:~/.composer/vendor/bin
+
 # Configure /app folder
 #RUN mkdir -p /app && rm -fr /var/www/html && ln -s /app/public /var/www/html
 
