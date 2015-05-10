@@ -2,7 +2,7 @@ FROM php:5.6-apache
 MAINTAINER YeTing <me@yeting.info>
 
 #Download Require
-RUN apt-get update && apt-get install -y libmcrypt-dev git \
+RUN apt-get update && apt-get install -y libmcrypt-dev zlib git \
 	&& docker-php-ext-install mcrypt mbstring zip \
 	&& curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer 
 
