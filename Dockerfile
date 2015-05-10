@@ -1,4 +1,5 @@
 FROM php:5.6-apache
+MAINTAINER YeTing <me@yeting.info>
 
 #Download Require
 RUN apt-get update && apt-get install -y libmcrypt-dev git \
