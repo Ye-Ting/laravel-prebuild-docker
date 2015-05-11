@@ -6,11 +6,14 @@ RUN apt-get update && apt-get install -y libmcrypt-dev libz-dev git \
 	&& docker-php-ext-install mcrypt mbstring zip \
 	&& curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer 
 
-RUN composer global require "phpunit/phpunit=~4.0" "phpspec/phpspec=~2.1" 
-
 ENV PATH=$PATH:~/.composer/vendor/bin
 
-RUN composer create-project laravel/laravel /app ~5.0.0  
+COPY composer.json /app
+
+RUN composer global require "phpunit/phpunit=~4.0" "phpspec/phpspec=~2.1" \ 
+	&& cd /app && composer install
+
+#RUN composer create-project laravel/laravel /app ~5.0.0  
 
 # Configure /app folder
 #RUN mkdir -p /app && rm -fr /var/www/html && ln -s /app/public /var/www/html
