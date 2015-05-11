@@ -10,8 +10,7 @@ ENV PATH=$PATH:~/.composer/vendor/bin
 
 RUN composer global require "phpunit/phpunit=~4.0" "phpspec/phpspec=~2.1" 
 
-RUN mkdir -p /app
-COPY composer.json /app
+COPY ./composer.json /app/
 RUN cd /app && composer install
 
 #RUN composer create-project laravel/laravel /app ~5.0.0  
