@@ -8,10 +8,11 @@ RUN apt-get update && apt-get install -y libmcrypt-dev libz-dev git \
 
 ENV PATH=$PATH:~/.composer/vendor/bin
 
-COPY composer.json /app
+RUN composer global require "phpunit/phpunit=~4.0" "phpspec/phpspec=~2.1" 
 
-RUN composer global require "phpunit/phpunit=~4.0" "phpspec/phpspec=~2.1" \ 
-	&& cd /app && composer install
+RUN mkdir -p /app
+COPY composer.json /app
+RUN cd /app && composer install
 
 #RUN composer create-project laravel/laravel /app ~5.0.0  
 
