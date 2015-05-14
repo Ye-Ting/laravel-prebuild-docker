@@ -8,7 +8,7 @@ RUN apt-get update && apt-get install -y libmcrypt-dev libz-dev git \
 
 ENV PATH=$PATH:~/.composer/vendor/bin
 
-RUN composer global require "phpunit/phpunit=~4.0" "phpspec/phpspec=~2.1" 
+RUN composer global require "phpunit/phpunit=~4.0" "phpspec/phpspec=~2.1" "laravel/envoy=~1.0" && a2enmod rewrite
 
 #COPY ./composer.json /app/
 #RUN cd /app && composer install
