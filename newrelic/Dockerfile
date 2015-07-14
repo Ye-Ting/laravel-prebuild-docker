@@ -13,6 +13,7 @@ RUN apt-get update -q && \
     docker-php-ext-install \
         mcrypt \
         mbstring \
+        pdo_mysql \
         zip && \
 
     # Configure the New Relic apt repository 配置 New Relic apt 库
