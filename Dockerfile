@@ -13,6 +13,7 @@ RUN apt-get update -q && \
     docker-php-ext-install \
         mcrypt \
         mbstring \
+        pdo_mysql \
         zip && \
 
 
