@@ -37,8 +37,6 @@ RUN apt-get update -q && \
     # 安装Composer,此物是PHP用来管理依赖关系的工具.
     curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
-# 配置 composer 执行.
-ENV PATH=$PATH:~/.composer/vendor/bin
 
 
 # 开启 Url 重写模块
