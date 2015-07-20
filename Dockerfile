@@ -6,6 +6,7 @@ RUN apt-get update -q && \
     apt-get install -y \
         libmcrypt-dev \
         libz-dev \
+        git \
         wget && \
 
     #  Docker Hub 官方 PHP 镜像内置命令，安装 PHP 拓展
