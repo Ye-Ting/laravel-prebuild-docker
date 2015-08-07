@@ -7,7 +7,7 @@ RUN apt-get update -q && \
         libmcrypt-dev \
         libz-dev \
         git \
-        wget && \
+        cron && \
 
     #  Docker Hub 官方 PHP 镜像内置命令，安装 PHP 拓展
     docker-php-ext-install \
@@ -17,11 +17,14 @@ RUN apt-get update -q && \
         zip && \
 
     # Configure the New Relic apt repository 配置 New Relic apt 库
-    echo deb http://apt.newrelic.com/debian/ newrelic non-free >> /etc/apt/sources.list.d/newrelic.list && \
+    mkdir -p /etc/apt/sources.list.d \
+    && echo 'deb http://apt.newrelic.com/debian/ newrelic non-free' \
+        >> /etc/apt/sources.list.d/newrelic.list \
 
-    # Trust the New Relic GPG key. 添加 New Relic apt 下载时所需的密钥
-    wget -O- https://download.newrelic.com/548C16BF.gpg | apt-key add - && \
-
+    # 添加 NewRelic APT 下载时用来验证的 GPG 公钥
+    && curl -s https://download.newrelic.com/548C16BF.gpg \
+        | apt-key add - \
+        
     # Update the local package list.
     apt-get update -q && \
 
@@ -37,7 +40,11 @@ RUN apt-get update -q && \
     # 安装Composer,此物是PHP用来管理依赖关系的工具.
     curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
-
+# 覆盖 NewRelic 配置文件
+RUN sed -i 's/"REPLACE_WITH_REAL_KEY"/\${NEW_RELIC_LICENSE_KEY}/g' \
+    /usr/local/etc/php/conf.d/newrelic.ini
+RUN sed -i 's/"PHP Application"/\${NEW_RELIC_APP_NAME}/g' \
+    /usr/local/etc/php/conf.d/newrelic.ini
 
 # 开启 Url 重写模块
 # 配置默认放置 App 的目录
